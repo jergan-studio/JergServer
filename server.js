@@ -1,36 +1,40 @@
 /**
  * server.js
- * Core WebSocket Network Router Logic
+ * 3D Engine & Chat Stream Router
  */
 const { WebSocketServer } = require('ws');
 
 function initializeJergServer(serverInstance) {
-    // Attach the WebSocket server to the existing HTTP instance
     const wss = new WebSocketServer({ server: serverInstance });
+    
+    // Store connected players globally to manage chat routing
+    const players = new Set();
 
-    console.log("[JergServer Engine] WebSocket layer attached successfully.");
+    console.log("[JergServer Engine] 3D Chat Layer activated.");
 
     wss.on('connection', (ws, req) => {
+        players.add(ws);
         const ip = req.socket.remoteAddress;
-        console.log(`[JergServer Network] New player handshake established from: ${ip}`);
+        console.log(`[JergServer] Player entered the 3D space from: ${ip}`);
 
-        // Handle incoming game packets from the Eaglercraft/Pocket client
-        ws.on('message', (message) => {
-            // Relay packets to other connected users or handle game loop logic here
-            // This is a standard pass-through structure for proxy configurations
+        // Handle game packets and chat streams
+        ws.on('message', (data, isBinary) => {
+            
+            // Broadcast world data, 3D coordinates, and chat messages to everyone else
             wss.clients.forEach((client) => {
                 if (client !== ws && client.readyState === 1) {
-                    client.send(message);
+                    client.send(data, { binary: isBinary });
                 }
             });
         });
 
         ws.on('close', () => {
-            console.log(`[JergServer Network] Player disconnected from: ${ip}`);
+            players.delete(ws);
+            console.log(`[JergServer] Player left the environment.`);
         });
 
-        ws.on('error', (error) => {
-            console.error(`[JergServer Error] Socket fault tracked: ${error.message}`);
+        ws.on('error', (err) => {
+            console.error(`[Network Error] ${err.message}`);
         });
     });
 
