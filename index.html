@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Jergcraft 3D Hub</title>
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #0d0d0d;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* Main Welcome Menu Overlap Dashboard */
+        #menu-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1c1c1c 0%, #0d0d0d 100%);
+            z-index: 999;
+            transition: opacity 0.4s ease;
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 3.5rem;
+            margin-top: 0;
+            margin-bottom: 2.5rem;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.6);
+            letter-spacing: 4px;
+            font-weight: 800;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .menu-btn {
+            background-color: #333333;
+            color: #ffffff;
+            border: 2px solid #555555;
+            padding: 18px 45px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 6px;
+            box-shadow: 0 6px 10px rgba(0,0,0,0.4);
+            transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
+            letter-spacing: 1px;
+        }
+
+        .menu-btn:hover {
+            background-color: #444444;
+            border-color: #888888;
+        }
+
+        .jerg-manage-btn {
+            background-color: #141414;
+            color: #00ffcc;
+            border: 2px solid #00ffcc;
+        }
+        .jerg-manage-btn:hover {
+            background-color: #00ffcc;
+            color: #141414;
+            border-color: #00ffcc;
+        }
+
+        .menu-btn:active {
+            transform: scale(0.96);
+        }
+
+        /* 3D Core Viewport Canvas Engine */
+        #game-canvas {
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 5;
+        }
+
+        /* Traditional Legacy Game Frame fallback engine */
+        #game-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        /* Native HUD Player Chat Interface */
+        #chat-interface-wrapper {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 380px;
+            height: 260px;
+            z-index: 50;
+            display: none;
+            flex-direction: column;
+            pointer-events: none;
+        }
+        #chat-log-box {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.45);
+            border-radius: 4px;
+            padding: 10px;
+            overflow-y: auto;
+            color: #fff;
+            font-size: 14px;
+            text-shadow: 1px 1px 2px #000;
+            margin-bottom: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        #chat-input-field {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            border: 1px solid #555;
+            padding: 10px;
+            border-radius: 4px;
+            color: #fff;
+            outline: none;
+            pointer-events: auto;
+            font-size: 14px;
+        }
+        #chat-input-field:focus {
+            border-color: #00ffcc;
+        }
+
+        /* Server Management Modal overlay layout */
+        #jerg-dashboard-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 320px;
+            background: #141414;
+            border: 2px solid #00ffcc;
+            border-radius: 8px;
+            padding: 25px;
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,
