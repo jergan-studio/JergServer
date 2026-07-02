@@ -1,10 +1,10 @@
 {
-  "name": "jergserver-template",
-  "version": "1.3.0",
-  "description": "Multiplayer and chat template engine for JergServers",
-  "main": "server.js",
+  "name": "jergserver-backend",
+  "version": "1.0.0",
+  "description": "Backend network controller for Jergcraft",
+  "main": "index.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node index.js"
   },
   "dependencies": {
     "ws": "^8.18.0"
