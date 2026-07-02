@@ -1,1 +1,1 @@
--- this
+const mode = survival
