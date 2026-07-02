@@ -1,7 +1,7 @@
 {
-  "name": "jergserver-backend",
-  "version": "1.0.0",
-  "description": "Backend network controller for Jergcraft",
+  "name": "jergserver-3d-backend",
+  "version": "1.0.1",
+  "description": "3D World and Chat Engine for Jergcraft",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
